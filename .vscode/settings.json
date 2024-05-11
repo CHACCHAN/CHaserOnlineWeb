@@ -1,0 +1,3 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}\\\\python-3.12.3-embed-amd64\\\\python.exe"
+}

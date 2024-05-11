@@ -1,0 +1,1 @@
+.\python-3.12.3-embed-amd64\python.exe .\Server\app.py
