@@ -1,5 +1,11 @@
 <!-- <script setup>
+import { ref, onMounted } from 'vue';
 import CHaserOnlineController from './assets/js/CHaserOnlineClient';
+
+const apple = ref();
+onMounted(() => {
+  CHaserOnlineClient()
+});
 
 const CHaserOnlineClient = async () => {
   let flag = false;
@@ -22,5 +28,8 @@ const CHaserOnlineClient = async () => {
 
 
 <template>
-  <router-view />
+  <div>
+    <!-- {{ apple }} -->
+    <router-view />
+  </div>
 </template>
