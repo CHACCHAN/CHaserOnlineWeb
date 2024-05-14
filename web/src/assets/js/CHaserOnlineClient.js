@@ -1,5 +1,5 @@
-// import GetReady from '../../../../CHaserOnline/GetReady.js';
-// import Action from '../../../../CHaserOnline/Action.js';
+import GetReady from '../../../../CHaserOnline/GetReady.js';
+import Action from '../../../../CHaserOnline/Action.js';
 
 export default class CHaserOnlineController {
     constructor(options) {
@@ -35,7 +35,7 @@ export default class CHaserOnlineController {
         await fetch('http://localhost:8080/api/chaseronline/getready', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'GetReadyMode': 'gr' })
+            body: JSON.stringify({ 'GetReadyMode': GetReady(this._returnNumber, this._ActionReturnNumber) })
         })
         .then((response) => response.json())
         .then((res) => this._returnNumber = res);
@@ -45,10 +45,10 @@ export default class CHaserOnlineController {
     }
 
     async action() {
-        this._ActionReturnNumber = await fetch('http://localhost:8080/api/chaseronline/action', {
+        await fetch('http://localhost:8080/api/chaseronline/action', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'mode': 'wu' })
+            body: JSON.stringify({ 'mode': Action(this._returnNumber, this._ActionReturnNumber) })
         })
         .then((response) => response.json())
         .then((res) => this._ActionReturnNumber = res);

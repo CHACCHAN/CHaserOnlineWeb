@@ -1,15 +1,8 @@
-<script setup>
-import { onMounted, ref } from 'vue';
+<!-- <script setup>
 import CHaserOnlineController from './assets/js/CHaserOnlineClient';
 
-const apple = ref();
-const flag = ref(false)
-
-onMounted(() => {
-  CHaserOnlineClient()
-});
-
 const CHaserOnlineClient = async () => {
+  let flag = false;
   const CHaserOnlineClient = new CHaserOnlineController({
     url : 'http://www7019ug.sakura.ne.jp/CHaserOnline003/user/',
     user : 'cool44',
@@ -18,18 +11,16 @@ const CHaserOnlineClient = async () => {
   });
 
   await CHaserOnlineClient.connect();
-  while(!flag.value) {
+  while(!flag) {
     apple.value = await CHaserOnlineClient.getready();
     apple.value = await CHaserOnlineClient.action();
-    flag.value = await CHaserOnlineClient.gameSet();
-    console.log('while' + flag.value);
+    flag = await CHaserOnlineClient.gameSet();
+    console.log('while' + flag);
   }
 }
-</script>
+</script> -->
 
 
 <template>
-  <div>
-    {{ apple }}
-  </div>
+  <router-view />
 </template>
