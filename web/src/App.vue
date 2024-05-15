@@ -11,16 +11,19 @@ const CHaserOnlineClient = async () => {
   let flag = false;
   const CHaserOnlineClient = new CHaserOnlineController({
     url : 'http://www7019ug.sakura.ne.jp/CHaserOnline003/user/',
-    user : 'cool44',
+    user : 'cool46',
     password: 'cool',
-    room: 6094,
+    room: 6081,
   });
 
-  await CHaserOnlineClient.connect();
-  while(!flag) {
+  const connectStatus = await CHaserOnlineClient.connect();
+  if(connectStatus.status === 'bad')
+    console.log('error');
+  while(!flag && connectStatus.status === 'ok') {
     apple.value = await CHaserOnlineClient.getready();
     apple.value = await CHaserOnlineClient.action();
     flag = await CHaserOnlineClient.gameSet();
+    if(flag) console.log('gameSet');
     console.log('while' + flag);
   }
 }

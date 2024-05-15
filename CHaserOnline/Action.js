@@ -2,10 +2,16 @@ export default function Action(returnNumber, ActionReturnNumber) {
     var mode = 1;
     var param;
 
-    if(returnNumber[1] === 80) {
+    if(returnNumber[1] >= 70 && returnNumber[1] <= 79) {
         mode = 1;
+    } else if(returnNumber[3] >= 70 && returnNumber[3] <= 79) {
+        mode = 3;
+    } else if(returnNumber[5] >= 70 && returnNumber[5] <= 79) {
+        mode = 5;
+    } else if(returnNumber[7] >= 70 && returnNumber[7] <= 79) {
+        mode = 7;
     } else {
-        mode = 4;
+        mode = 1;
     }
 
     switch(mode) {
