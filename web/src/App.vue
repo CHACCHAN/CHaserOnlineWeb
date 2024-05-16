@@ -1,13 +1,17 @@
 <script setup>
+import { ref } from 'vue';
 import { router } from './router.js';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+
+const pageRouteFlag = ref(false);
 
 NProgress.configure({
   showSpinner: false,
 });
 
 router.beforeEach((to, from, next) => {
+  pageRouteFlag.value = true;
   NProgress.start();
   next();
 });
@@ -15,6 +19,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   setTimeout(() => {
     NProgress.done();
+    pageRouteFlag.value = false;
   }, 100);
 });
 
@@ -55,6 +60,7 @@ const CHaserOnlineClient = async () => {
 
 <template>
   <div>
+    <div class="position-fixed top-0 left-0 z-3" style="width: 100%; height: 100vh;" v-if="pageRouteFlag"></div>
     <!-- {{ apple }} -->
     <router-view />
   </div>

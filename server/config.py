@@ -1,12 +1,5 @@
-import datetime
-import os
+from pathlib import Path
 
-JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
-
-JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=10)
-
-JWT_TOKEN_LOCATION = ['cookies']
-
-JWT_COOKIE_SAMESITE = 'Strict'
-
-JWT_COOKIE_SECURE = os.getenv('JWT_COOKIE_SECURE')
+class DBInfo:
+    db_name: str = 'user.db'
+    db_path: str = (Path(__file__).parent / db_name).resolve().__str__()
