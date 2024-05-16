@@ -9,10 +9,12 @@ sys.path.append(server_dir)
 from flask import Flask
 from flask_cors import CORS
 # from flask_login import LoginManager
+from flask_jwt_extended import JWTManager
 from routes import routes_blueprint
 from apis import apis_blueprint
 
 app = Flask(__name__, static_folder='../web/dist/static', template_folder='../web/dist')
+jwt = JWTManager(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 # login_manager = LoginManager()
 # login_manager.init_app(app)
