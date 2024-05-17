@@ -12,11 +12,11 @@ from CHaserOnlineClient import CHaserOnlineController
 
 apis_blueprint = Blueprint('apis', __name__)
 
-@apis_blueprint.route('/fuck', methods=["POST"])
+@apis_blueprint.route('/fuck', methods=['POST'])
 def post():
     result = request.get_json()
     print(f'{result.get('url')}')
-    data = {"test":"Good"}
+    data = {'test':'Good'}
     return jsonify(data)
 
 #############################################################
@@ -77,7 +77,7 @@ def get_user():
         
     except Exception as e:
         logger.error(traceback.format_exc())
-        return jsonify({"message": "An error occurred"}), 500
+        return jsonify({'message': 'An error occurred'}), 500
     
     return jsonify(users), 200
     
@@ -87,56 +87,57 @@ def signin():
     username = request.json.get('username', None)
     password = request.json.get('password', None)
     if not username or not password:
-        return jsonify({"message": "Format does not match"}), 400
+        return jsonify({'message': 'Format does not match'}), 400
 
-    sql = "SELECT user_id, username, password FROM authinfo WHERE username=?;"
+    sql = 'SELECT user_id, username, password FROM authinfo WHERE username=?;'
     try:
         user = db(sql, [username])
         logger.debug(f'username={username}')
         if not user:
-            return jsonify({"message": "Bad username or password"}), 401
+            return jsonify({'message': 'Bad username or password'}), 401
 
         logger.debug(f'{user}')
-        if user["password"] == password:
-            sql = "UPDATE authinfo SET updated_at=? WHERE username=?;"
-            timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+        if user['password'] == password:
+            sql = 'UPDATE authinfo SET updated_at=? WHERE username=?;'
+            timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
             db(sql, [timestamp, username])
         else:
-            return jsonify({"message": "Bad username or password"}), 401
+            return jsonify({'message': 'Bad username or password'}), 401
     except Exception as e:
         logger.error(traceback.format_exc())
-        return jsonify({"message": "An error occurred"}), 500
+        return jsonify({'message': 'An error occurred'}), 500
 
-    access_token = create_access_token(identity=user["user_id"])
-    sql = "UPDATE authinfo SET jti=? WHERE username=?;"
+    access_token = create_access_token(identity=user['user_id'])
+    sql = 'UPDATE authinfo SET jti=? WHERE username=?;'
     db(sql, [get_jti(access_token), username])
 
     return jsonify(access_token=access_token), 200
 
-
-@apis_blueprint.route("/protected", methods=["GET"])
-@jwt_required
-def protected():
-    user = auth_jti(get_jwt_identity(), get_jwt()["jti"])
-    if not user:
-        return jsonify({"message": "Bad access token"}), 401
-
-    return jsonify({"username": user["username"]}), 200
-
-
-@apis_blueprint.route("/require", methods=["GET", "POST"])
+@apis_blueprint.route('/require', methods=['GET', 'POST'])
 def require():
     if not request.is_json:
-        return jsonify({"message": "Missing JSON in request"}), 400
+        return jsonify({'message': 'Missing JSON in request'}), 400
     username = request.json.get('username', None)
     password = request.json.get('password', None)
 
     print(f'require request: username={username}, password={password}')
 
-    sql = "SELECT * FROM authinfo WHERE username=?;"
-    if db(sql, [ username ]):
-        return jsonify({"mode": "require", "status": "error", "message": "This username cannot be used"}), 400
+    sql = 'SELECT * FROM authinfo WHERE username=?;'
+    if db(sql, [username]):
+        return jsonify({'mode': 'require', 'status': 'error', 'message': 'This username cannot be used'}), 400
     
-    sql = "INSERT INTO authinfo (username, password) VALUES (?, ?);"
+    sql = 'INSERT INTO authinfo (username, password) VALUES (?, ?);'
     db(sql, [username, password])
-    return jsonify({"mode": "require", "status": "success", "message": "Completed"}), 200
+    return jsonify({'mode': 'require', 'status': 'success', 'message': 'Completed'}), 200
+
+@apis_blueprint.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    user = auth_jti(get_jwt_identity(), get_jwt()['jti'])
+    if not user:
+        return jsonify({'message': 'Bad access token'}), 401
+    
+    sql = 'SELECT * FROM authinfo WHERE username=?;'
+    currentUser =  db(sql, [user.get('username')])
+
+    return jsonify({'status': 'ok', 'username': currentUser.get('username'), 'password': currentUser.get('password')}), 200
