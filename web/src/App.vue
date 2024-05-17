@@ -17,12 +17,13 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-  setTimeout(() => {
-    NProgress.done();
-    pageRouteFlag.value = false;
-  }, 100);
+  NProgress.done();
+  pageRouteFlag.value = false;
 });
 
+window.addEventListener('beforeunload', () => {
+  localStorage.clear();
+});
 </script>
 
 

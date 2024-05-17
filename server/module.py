@@ -5,9 +5,7 @@ from typing import Optional
 from config import DBInfo
 
 
-def db(sql, data=None) -> Optional[dict]:
-    """SQL送信"""
-
+def db(sql, data=None)->Optional[dict]:
     rows = []
     with closing(sqlite3.connect(DBInfo.db_path)) as conn:
         conn.row_factory = sqlite3.Row
@@ -18,10 +16,18 @@ def db(sql, data=None) -> Optional[dict]:
 
     return dict(rows[0]) if rows else None
 
+def db_get(sql)->list[dict]:
+    rows = []
+    with closing(sqlite3.connect(DBInfo.db_path)) as conn:
+        conn.row_factory = sqlite3.Row
+        c = conn.cursor()
+        c.execute(sql)
+        rows = c.fetchall()
+
+    return [dict(row) for row in rows]
+
 
 def auth_jti(user_id, token_jti)->bool:
-    """古いトークンの使用禁止"""
-
     sql = "SELECT username, jti FROM authinfo WHERE user_id=?;"
     user = db(sql, [user_id])
     if token_jti == user["jti"]:
