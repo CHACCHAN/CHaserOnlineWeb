@@ -325,7 +325,7 @@ onUpdated(() => {
                                         <div class="mb-1">
                                             <div class="text-primary">ステータス</div>
                                             <div class="text-bg-success rounded" v-if="status?.status === 'ok'">> {{ status?.message }}</div>
-                                            <div class="text-bg-danger rounded" v-else-if="status?.status === 'bad'">> {{ status?.message }}</div>
+                                            <div class="text-bg-danger rounded" v-else-if="status?.status === 'bad'">> {{ status?.message || fetchAPI?.msg }}</div>
                                         </div>
                                         <div class="text-primary">Fetch API</div>
                                         <div v-text="fetchAPI"></div>
