@@ -83,8 +83,8 @@ onMounted(() => {
                     </div>
                     <div class="ms-2 fs-4" v-else>{{ user.username }}</div>
                 </div>
-                <router-link :to="{ name: 'register' }" class="btn btn-success py-1 fw-bold w-100" style="font-size: 14px;" :key="'register-link'">Register</router-link>
             </TransitionGroup>
+            <router-link :to="{ name: 'register' }" class="btn btn-success py-1 fw-bold w-100" style="font-size: 14px;" :key="'register-link'">Register</router-link>
         </AuthComponent>
     </div>
 </template>
