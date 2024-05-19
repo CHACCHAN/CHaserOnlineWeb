@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
 
@@ -113,10 +113,14 @@ const getSetting = async() => {
     });
 }
 
-onMounted(() => {
+onMounted(async() => {
+    await checkUser();
+    await getSetting();
+    await getUser();
+});
+
+onUpdated(() => {
     checkUser();
-    getSetting();
-    getUser();
 });
 </script>
 
@@ -195,7 +199,7 @@ onMounted(() => {
                                                     <div @mouseenter="onMousemove('enter', index)">{{ user.username }}</div>
                                                 </div>
                                             </div>
-                                            <div v-if="!users[1]">NULL</div>
+                                            <div v-if="!users || !users[1]">NULL</div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
