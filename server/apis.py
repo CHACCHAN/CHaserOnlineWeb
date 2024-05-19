@@ -1,4 +1,6 @@
-from flask import Blueprint, request, jsonify
+import json
+import os
+from flask import Blueprint, request, jsonify, send_from_directory
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity, get_jti, get_jwt
@@ -10,6 +12,8 @@ from logzero import logger
 import traceback
 from CHaserOnlineClient import CHaserOnlineController
 
+setting_currentDir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(setting_currentDir, '../CHaserOnline/setting.json')
 apis_blueprint = Blueprint('apis', __name__)
 
 @apis_blueprint.route('/fuck', methods=['POST'])
@@ -21,6 +25,10 @@ def post():
 
 #############################################################
 # CHaserOnline API
+@apis_blueprint.route('/chaseronline/js/<path:filename>')
+def serve_chaser_files(filename)->any:
+    return send_from_directory('../CHaserOnline', filename)
+
 @apis_blueprint.route('/chaseronline/connect', methods=['POST'])
 def connect()->object:
     global _CHaserOnlineClient
@@ -65,6 +73,38 @@ def gameSet()->bool:
 def gameTurn()->int:
     return jsonify(_CHaserOnlineClient.gameTurn()), 200
 
+@apis_blueprint.route('/chaseronline/post/setting', methods=['POST'])
+@jwt_required()
+def post_setting()->dict:
+    try:
+        with open(json_path, 'r', encoding='utf-8') as f:
+            settings = json.load(f)
+            settings['CHaserOnlineServerURL'] = request.json.get('CHaserOnlineServerURL')
+            settings['CHaserOnlineProxy'] = request.json.get('CHaserOnlineProxy')
+    except FileNotFoundError:
+        return jsonify({'status':'bad', 'message':f'Error: The file {json_path} does not exist.'}), 500
+    except json.JSONDecodeError as e:
+        return jsonify({'status':'bad', 'message':f'Error decoding JSON: {e}'}), 500
+    
+    try:
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(settings, f, ensure_ascii=False, indent=4)
+        return jsonify({'status':'ok', 'message': f'Updated settings: {settings}'}), 200
+    except IOError as e:
+        return jsonify({'status':'bad', 'message': f'Error writing JSON: {e}'}), 500
+    
+@apis_blueprint.route('/chaseronline/get/setting', methods=['GET'])
+@jwt_required()
+def get_setting()->dict:
+    try:
+        with open(json_path, 'r', encoding='utf-8') as f:
+            settings = json.load(f)
+            return jsonify({'status':'ok', 'data':settings}), 200
+    except FileNotFoundError:
+        return jsonify({'status':'bad', 'message':f'Error: The file {json_path} does not exist.'}), 500
+    except json.JSONDecodeError as e:
+        return jsonify({'status':'bad', 'message':f'Error decoding JSON: {e}'}), 500
+    
 #############################################################
 # Auth API
 @apis_blueprint.route('/get_user', methods=['GET'])
@@ -79,8 +119,7 @@ def get_user():
         logger.error(traceback.format_exc())
         return jsonify({'message': 'An error occurred'}), 500
     
-    return jsonify(users), 200
-    
+    return jsonify(users), 200  
 
 @apis_blueprint.route('/signin', methods=['POST'])
 def signin():
@@ -130,6 +169,18 @@ def require():
     db(sql, [username, password])
     return jsonify({'mode': 'require', 'status': 'success', 'message': 'Completed'}), 200
 
+@apis_blueprint.route('/remove', methods=['POST'])
+@jwt_required()
+def remove():
+    user_id = request.json.get('user_id', None)
+    if not user_id:
+        return jsonify({'message': 'Format does not match'}), 400
+    
+    sql = 'DELETE FROM authinfo WHERE user_id=?'
+    db(sql, [user_id])
+    
+    return jsonify({'status': 'ok'})
+    
 @apis_blueprint.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():

@@ -1,5 +1,35 @@
-import GetReady from '../../../../CHaserOnline/GetReady.js';
-import Action from '../../../../CHaserOnline/Action.js';
+async function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const existingScript = document.querySelector(`script[src="${url}"]`);
+        if (existingScript) {
+            console.log(`Removing existing script: ${url}`);
+            existingScript.remove();
+        }
+
+        const script = document.createElement('script');
+        script.src = url;
+        script.type = 'text/javascript';
+        script.onload = () => {
+            console.log(`Loaded script: ${url}`);
+            resolve(script);
+        };
+        script.onerror = (e) => {
+            console.error(`Failed to load script: ${url}`, e);
+            reject(new Error(`Failed to load script: ${url}`));
+        };
+        document.head.appendChild(script);
+        console.log(`Appending script: ${url}`);
+    });
+}
+
+async function importDependencies() {
+    await loadScript('http://localhost:8080/api/chaseronline/js/GetReady.js');
+    await loadScript('http://localhost:8080/api/chaseronline/js/Action.js');
+
+    const GetReady = window.GetReady;
+    const Action = window.Action;
+    return { GetReady, Action };
+}
 
 export default class CHaserOnlineController {
     constructor(options) {
@@ -32,6 +62,7 @@ export default class CHaserOnlineController {
     }
 
     async getready() {
+        const { GetReady } = await importDependencies();
         await fetch('http://localhost:8080/api/chaseronline/getready', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -45,6 +76,7 @@ export default class CHaserOnlineController {
     }
 
     async action() {
+        const { Action } = await importDependencies();
         await fetch('http://localhost:8080/api/chaseronline/action', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

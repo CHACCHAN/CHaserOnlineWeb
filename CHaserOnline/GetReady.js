@@ -1,4 +1,4 @@
-export default function GetReady(returnNumber, ActionReturnNumber) {
+function GetReady(returnNumber, ActionReturnNumber) {
     var GetReadyMode = 4;
     var param;
 
@@ -33,3 +33,5 @@ export default function GetReady(returnNumber, ActionReturnNumber) {
 
     return param;
 }
+
+window.GetReady = GetReady;

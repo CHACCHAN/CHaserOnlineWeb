@@ -1,10 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { router } from './router.js';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+// import CHaserOnlineController from './assets/js/CHaserOnlineClient';
 
 const pageRouteFlag = ref(false);
+// const apple = ref();
 
 NProgress.configure({
   showSpinner: false,
@@ -24,45 +26,38 @@ router.afterEach(() => {
 window.addEventListener('beforeunload', () => {
   localStorage.clear();
 });
-</script>
 
+// const CHaserOnlineClient = async () => {
+//   let flag = false;
+//   const CHaserOnlineClient = new CHaserOnlineController({
+//     url : 'http://www7019ug.sakura.ne.jp/CHaserOnline003/user/',
+//     user : 'cool47',
+//     password: 'cool',
+//     room: 6082,
+//   });
 
-<!-- <script setup>
-import { ref, onMounted } from 'vue';
-import CHaserOnlineController from './assets/js/CHaserOnlineClient';
+//   const connectStatus = await CHaserOnlineClient.connect();
+//   if(connectStatus.status === 'bad')
+//     console.log('error');
+//   while(!flag && connectStatus.status === 'ok') {
+//     apple.value = await CHaserOnlineClient.getready();
+//     apple.value = await CHaserOnlineClient.action();
+//     flag = await CHaserOnlineClient.gameSet();
+//     if(flag) console.log('gameSet');
+//     console.log('while' + flag);
+//   }
+// }
 
-const apple = ref();
 onMounted(() => {
-  CHaserOnlineClient()
 });
-
-const CHaserOnlineClient = async () => {
-  let flag = false;
-  const CHaserOnlineClient = new CHaserOnlineController({
-    url : 'http://www7019ug.sakura.ne.jp/CHaserOnline003/user/',
-    user : 'cool46',
-    password: 'cool',
-    room: 6081,
-  });
-
-  const connectStatus = await CHaserOnlineClient.connect();
-  if(connectStatus.status === 'bad')
-    console.log('error');
-  while(!flag && connectStatus.status === 'ok') {
-    apple.value = await CHaserOnlineClient.getready();
-    apple.value = await CHaserOnlineClient.action();
-    flag = await CHaserOnlineClient.gameSet();
-    if(flag) console.log('gameSet');
-    console.log('while' + flag);
-  }
-}
-</script> -->
+</script>
 
 
 <template>
   <div>
     <div class="position-fixed top-0 left-0 z-3" style="width: 100%; height: 100vh;" v-if="pageRouteFlag"></div>
     <!-- {{ apple }} -->
+    <!-- <button @click="CHaserOnlineClient()">実行</button> -->
     <router-view />
   </div>
 </template>

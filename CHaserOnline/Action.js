@@ -1,4 +1,4 @@
-export default function Action(returnNumber, ActionReturnNumber) {
+function Action(returnNumber, ActionReturnNumber) {
     var mode = 1;
     var param;
 
@@ -33,3 +33,5 @@ export default function Action(returnNumber, ActionReturnNumber) {
 
     return param;
 }
+
+window.Action = Action;
