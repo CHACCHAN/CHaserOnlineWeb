@@ -63,30 +63,38 @@ export default class CHaserOnlineController {
 
     async getready() {
         const { GetReady } = await importDependencies();
+        const sendGetReady = GetReady(this._returnNumber, this._ActionReturnNumber);
         await fetch('http://localhost:8080/api/chaseronline/getready', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'GetReadyMode': GetReady(this._returnNumber, this._ActionReturnNumber) })
+            body: JSON.stringify({ 'GetReadyMode': sendGetReady })
         })
         .then((response) => response.json())
         .then((res) => this._returnNumber = res);
         console.log(this._returnNumber);
 
-        return this._returnNumber;
+        return {
+            returnNumber: this._returnNumber,
+            command: sendGetReady,
+        }
     }
 
     async action() {
         const { Action } = await importDependencies();
+        const sendAction = Action(this._returnNumber, this._ActionReturnNumber);
         await fetch('http://localhost:8080/api/chaseronline/action', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'mode': Action(this._returnNumber, this._ActionReturnNumber) })
+            body: JSON.stringify({ 'mode': sendAction })
         })
         .then((response) => response.json())
         .then((res) => this._ActionReturnNumber = res);
         console.log(this._ActionReturnNumber);
 
-        return this._ActionReturnNumber;
+        return {
+            returnNumber: this._ActionReturnNumber,
+            command: sendAction,
+        }
     }
 
     async gameSet() {

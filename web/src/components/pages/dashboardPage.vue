@@ -15,6 +15,7 @@ const password = ref();
 const roomNumber = ref('');
 const CHaserOnlineServerURL = ref(null);
 const CHaserOnlineProxy = ref(null);
+const RunCommandHistory = ref();
 
 const getUser = async() => {
     await fetch('http://localhost:8080/api/get_user')
@@ -115,6 +116,7 @@ const getSetting = async() => {
 }
 const CHaserOnlineClient = async () => {
     let flag = false;
+    let element;
     const CHaserOnlineClient = new CHaserOnlineController({
         url: CHaserOnlineServerURL.value,
         proxy: CHaserOnlineProxy.value,
@@ -123,15 +125,73 @@ const CHaserOnlineClient = async () => {
         room: roomNumber.value,
     });
 
+    element = document.createElement('div');
+    element.innerHTML = `
+        <div class="card card-body p-1 text-bg-dark mb-1">
+            <div class="text-primary fw-bold">GameStart ▶</div>
+        </div>
+    `;
+    RunCommandHistory.value.prepend(element);
+
     const connectStatus = await CHaserOnlineClient.connect();
-    if(connectStatus.status === 'bad')
-        console.log('error');
+    fetchAPI.value = connectStatus;
+    if(connectStatus.status === 'bad') {
+        element = document.createElement('div');
+        element.innerHTML = `
+            <div class="card card-body p-1 text-bg-dark mb-1">
+                <div class="text-danger fw-bold">Error✘</div>
+                <div class="text-light">ゾンビ化または実行エラー</div>
+            </div>
+        `;
+        RunCommandHistory.value.prepend(element);
+        status.value = {status: 'bad', message: 'エラー: ゾンビ化または実行エラー'};
+    } else {
+        status.value = {status: 'ok', message: '実行中'};
+    }
     while(!flag && connectStatus.status === 'ok') {
-        await CHaserOnlineClient.getready();
-        await CHaserOnlineClient.action();
+        const GetReady = await CHaserOnlineClient.getready();
+        element = document.createElement('div');
+        element.innerHTML = `
+            <div class="card card-body p-1 text-bg-dark mb-1">
+                <div class="text-danger fw-bold">GetReady</div>
+                <div class="text-light">command1=${GetReady?.command}, returnCode=[${GetReady?.returnNumber}]</div>
+            </div>
+        `;
+        RunCommandHistory.value.prepend(element);
+        fetchAPI.value = GetReady;
+
+        const Action = await CHaserOnlineClient.action();
+        element = document.createElement('div');
+        element.innerHTML = `
+            <div class="card card-body p-1 text-bg-dark mb-1">
+                <div class="text-success fw-bold">Action</div>
+                <div class="text-light">command2=${Action?.command}, returnCode=[${Action?.returnNumber}]</div>
+            </div>
+        `;
+        RunCommandHistory.value.prepend(element);
+        fetchAPI.value = Action;
+
+        
         flag = await CHaserOnlineClient.gameSet();
-        if(flag) console.log('gameSet');
-        console.log('while' + flag);
+        if(flag) {
+            element = document.createElement('div');
+            element.innerHTML = `
+                <div class="card card-body p-1 text-bg-dark mb-1">
+                    <div class="text-primary fw-bold">GameSet●</div>
+                </div>
+            `;
+            RunCommandHistory.value.prepend(element);
+            status.value = {status: 'ok', message: '実行完了済'};
+        } else {
+            element = document.createElement('div');
+            element.innerHTML = `
+                <div class="card card-body p-1 text-bg-dark mb-1">
+                    <div class="text-warning fw-bold">Complete✓</div>
+                    <div class="text-light">command3=#</div>
+                </div>
+            `;
+            RunCommandHistory.value.prepend(element);
+        }
     }
 }
 
@@ -142,7 +202,7 @@ onMounted(async() => {
 });
 
 onUpdated(async() => {
-    await checkUser()
+    await checkUser();
 });
 </script>
 
@@ -312,30 +372,18 @@ onUpdated(async() => {
                                         </svg>
                                         <div class="ms-1">実行コマンド</div>
                                     </div>
-                                    <div class="border border-light rounded-bottom text-light p-3 overflow-auto" style="height: 400px;">
-                                        <div class="card card-body p-1 text-bg-dark mb-1">
-                                            <div class="text-danger fw-bold">GetReady</div>
-                                            <div class="text-light">command1=gr, returnCode=[50, 50, 40, 60, 1000, 60, 85, 65, 44, 22]</div>
-                                        </div>
-                                        <div class="card card-body p-1 text-bg-dark mb-1">
-                                            <div class="text-success fw-bold">Action</div>
-                                            <div class="text-light">command2=wu, returnCode=[50, 50, 40, 60, 1000, 60, 85, 65, 44, 22]</div>
-                                        </div>
-                                        <div class="card card-body p-1 text-bg-dark mb-1">
-                                            <div class="text-warning fw-bold">Complete✓</div>
-                                            <div class="text-light">command3=#, returnCode=[50, 50, 40, 60, 1000, 60, 85, 65, 44, 22]</div>
-                                        </div>
-                                        <div class="card card-body p-1 text-bg-dark mb-1">
-                                            <div class="text-danger fw-bold">GetReady</div>
-                                            <div class="text-light">command1=gr, returnCode=[50, 50, 40, 60, 1000, 60, 85, 65, 44, 22]</div>
-                                        </div>
-                                        <div class="card card-body p-1 text-bg-dark mb-1">
-                                            <div class="text-success fw-bold">Action</div>
-                                            <div class="text-light">command2=wu, returnCode=[50, 50, 40, 60, 1000, 60, 85, 65, 44, 22]</div>
-                                        </div>
-                                        <div class="card card-body p-1 text-bg-dark mb-1">
-                                            <div class="text-warning fw-bold">Complete✓</div>
-                                            <div class="text-light">command3=#, returnCode=[50, 50, 40, 60, 1000, 60, 85, 65, 44, 22]</div>
+                                    <div ref="RunCommandHistory" class="border border-light rounded-bottom text-light p-3 overflow-auto" style="height: 400px;">
+                                        <div class="card card-body p-1 text-bg-dark">
+                                            <div class="row">
+                                                <div class="col-3 col-md-2">
+                                                    <video class="rounded" width="100%" autoplay muted loop>
+                                                        <source src="../../assets/video/CHaserOnline.mp4">
+                                                    </video>
+                                                </div>
+                                                <div class="col-9 col-md-10 d-flex align-items-center">
+                                                    <div class="text-light fw-bold">処理を開始してください</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
