@@ -1,31 +1,27 @@
-<!-- <script setup>
-import { ref, onMounted } from 'vue';
-import monaco from 'monaco-editor';
+<script setup>
+import { onMounted } from 'vue';
+import MonacoEditor from '../MonacoEditor.vue';
 
-const editor = ref();
+const getValueEmit = (newData) => {
+    console.log('data' + newData);
+}
 
 onMounted(() => {
-    editor.value = monaco.editor.create(this.$refs.editor, {
-        value: `// Type source code in your language here...
-        class MyClass {
-        @attribute
-        void main() {
-            Console.writeln( "Hello world\n");
-        }
-        }`,
-        language: "javascript",
-        lineNumbers: "on",
-        roundedSelection: true,
-        scrollBeyondLastLine: false,
-        readOnly: false,
-        theme: "vs-dark",
-    });
-});
-</script> -->
+    document.querySelector('body').classList.add('overflow-hidden');
+})
+</script>
 
 <template>
-    <div>
-        <!-- <div ref="editor" class="editor-container"></div> -->
-        aa
+    <div class="row overflow-hidden">
+        <div class="col-12 col-md-2">
+            <router-link :to="{ name: 'dashboard' }">戻る</router-link>
+        </div>
+        <div class="col-12 col-md-10">
+            <MonacoEditor 
+                language="javascript"
+                value="// Type your code here..."
+                @getValue="getValueEmit"
+            />
+        </div>
     </div>
 </template>
