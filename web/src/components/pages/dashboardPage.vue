@@ -16,6 +16,7 @@ const roomNumber = ref('');
 const CHaserOnlineServerURL = ref(null);
 const CHaserOnlineProxy = ref(null);
 const RunCommandHistory = ref();
+const runFlag = ref(false);
 
 const getUser = async() => {
     await fetch('http://localhost:8080/api/get_user')
@@ -116,6 +117,7 @@ const getSetting = async() => {
 }
 const CHaserOnlineClient = async () => {
     let flag = false;
+    runFlag.value = true;
     let element;
     const CHaserOnlineClient = new CHaserOnlineController({
         url: CHaserOnlineServerURL.value,
@@ -144,6 +146,7 @@ const CHaserOnlineClient = async () => {
             </div>
         `;
         RunCommandHistory.value.prepend(element);
+        runFlag.value = false;
         status.value = {status: 'bad', message: 'エラー: ゾンビ化または実行エラー'};
     } else {
         status.value = {status: 'ok', message: '実行中'};
@@ -177,11 +180,12 @@ const CHaserOnlineClient = async () => {
             element = document.createElement('div');
             element.innerHTML = `
                 <div class="card card-body p-1 text-bg-dark mb-1">
-                    <div class="text-primary fw-bold">GameSet●</div>
+                    <div class="text-primary fw-bold">GameSet ●</div>
                 </div>
             `;
             RunCommandHistory.value.prepend(element);
             status.value = {status: 'ok', message: '実行完了済'};
+            runFlag.value = false;
         } else {
             element = document.createElement('div');
             element.innerHTML = `
@@ -191,6 +195,20 @@ const CHaserOnlineClient = async () => {
                 </div>
             `;
             RunCommandHistory.value.prepend(element);
+        }
+
+        if(!runFlag.value) {
+            element = document.createElement('div');
+            element.innerHTML = `
+                <div class="card card-body p-1 text-bg-dark mb-1">
+                    <div class="text-danger fw-bold">強制停止</div>
+                    <div class="text-light">このユーザはしばらく使用不可になります</div>
+                </div>
+            `;
+            RunCommandHistory.value.prepend(element);
+            status.value = {status: 'bad', message: '強制停止しました'};
+            flag = true;
+            runFlag.value = false;
         }
     }
 }
@@ -243,7 +261,7 @@ onUpdated(async() => {
                                             <button class="btn btn-dark rounded-0 text-light col-4" v-for="number in 9" :key="number" @click="roomNumber += number.toString()">
                                                 <div>{{ number }}</div>
                                             </button>
-                                            <button class="btn border-0 text-light col-4" v-for="command in ['', '0', 'C']" :key="command">
+                                            <button class="btn btn-dark rounded-0 text-light col-4" v-for="command in ['#', '0', 'C']" :key="command">
                                                 <div class="text-light" v-if="command == '0'" @click="roomNumber += command.toString()">{{ command }}</div>
                                                 <div class="text-danger" v-else @click="roomNumber = ''">{{ command }}</div>
                                             </button>
@@ -308,7 +326,7 @@ onUpdated(async() => {
                                                 </a>
                                                 <div class="text-secondary fw-bold dropdown-toggle" style="font-size: 12px;">エディタ</div>
                                             </div>
-                                            <div class="col-2 text-center">
+                                            <div class="col-2 text-center" v-if="!runFlag">
                                                 <div @click="CHaserOnlineClient()">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plugin rotation" style="cursor: pointer;" viewBox="0 0 16 16">
                                                         <path fill-rule="evenodd" d="M1 8a7 7 0 1 1 2.898 5.673c-.167-.121-.216-.406-.002-.62l1.8-1.8a3.5 3.5 0 0 0 4.572-.328l1.414-1.415a.5.5 0 0 0 0-.707l-.707-.707 1.559-1.563a.5.5 0 1 0-.708-.706l-1.559 1.562-1.414-1.414 1.56-1.562a.5.5 0 1 0-.707-.706l-1.56 1.56-.707-.706a.5.5 0 0 0-.707 0L5.318 5.975a3.5 3.5 0 0 0-.328 4.571l-1.8 1.8c-.58.58-.62 1.6.121 2.137A8 8 0 1 0 0 8a.5.5 0 0 0 1 0Z"/>
@@ -316,12 +334,14 @@ onUpdated(async() => {
                                                 </div>
                                                 <div class="text-success fw-bold" style="font-size: 12px;">実行</div>
                                             </div>
-                                            <div class="col-2 text-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-power rotation" style="cursor: pointer;" viewBox="0 0 16 16">
-                                                    <path d="M7.5 1v7h1V1h-1z"/>
-                                                    <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
-                                                </svg>
-                                                <div class="text-danger fw-bold" style="font-size: 12px;">停止</div>
+                                            <div class="col-2 text-center" v-if="runFlag">
+                                                <div @click="runFlag = false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-power rotation" style="cursor: pointer;" viewBox="0 0 16 16">
+                                                        <path d="M7.5 1v7h1V1h-1z"/>
+                                                        <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
+                                                    </svg>
+                                                    <div class="text-danger fw-bold" style="font-size: 12px;">停止</div>
+                                                </div>
                                             </div>
                                             <div class="col-2 text-center">
                                                 <router-link class="text-light" :to="{ name: 'login' }">

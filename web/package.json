@@ -12,7 +12,9 @@
     "core-js": "^3.8.3",
     "gsap": "^3.12.5",
     "js-cookie": "^3.0.5",
+    "monaco-editor": "^0.48.0",
     "nprogress": "^0.2.0",
+    "simplebar-vue": "^2.3.4",
     "vue": "^3.2.13",
     "vue-router": "^4.0.13"
   },

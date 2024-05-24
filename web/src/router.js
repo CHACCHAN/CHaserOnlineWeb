@@ -9,6 +9,11 @@ export const router = createRouter({
             component: () => import('./components/pages/dashboardPage.vue'),
         },
         {
+            path: '/editor',
+            name: 'editor',
+            component: () => import('./components/pages/editorPage.vue'),
+        },
+        {
             path: '/auth',
             component: () => import('./components/pages/auth/authPage.vue'),
             children: [
