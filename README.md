@@ -61,7 +61,7 @@ zipの場合
    - CHaserOnlineフォルダは[JavaScript](https://ja.wikipedia.org/wiki/JavaScript)でGetReady、Actionなどを記述できる場所です。
    - よく使うことになる場所になるでしょう。
    
-   例 `CHaserOnline/GetReady.js`
+   例 `CHaserOnline/GetReady.js`の中身
    
    ``` javascript
    function GetReady(returnNumber, ActionReturnNumber) {
@@ -109,7 +109,7 @@ zipの場合
    - docsフォルダはドキュメントが含まれています。
    - run.batは実行ファイルです。
 3. サーバーを実行してみよう
-   - run.batをダブルクリックでサーバーとブラウザが起動します。
+   `run.bat`をダブルクリックでサーバーとブラウザが起動します。
 
 ## Author
 - 作成者 中山裕哉
