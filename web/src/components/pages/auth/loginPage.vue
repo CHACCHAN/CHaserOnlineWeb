@@ -53,6 +53,7 @@ const onBeforeEnter = (elm, done) => {
 }
 
 onMounted(() => {
+    document.title = 'Login';
     getUser();
 });
 </script>

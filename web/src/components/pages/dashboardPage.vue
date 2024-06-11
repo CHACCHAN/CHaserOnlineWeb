@@ -115,6 +115,21 @@ const getSetting = async() => {
         }
     });
 }
+const runCheck = async() => {
+    if(CHaserOnlineServerURL.value && username.value && password.value && roomNumber.value) {
+        CHaserOnlineClient();
+    } else {
+        let element = document.createElement('div');
+        element.innerHTML = `
+            <div class="card card-body p-1 text-bg-dark mb-1">
+                <div class="text-danger fw-bold">Error✘</div>
+                <div class="text-light">実行情報が不足しています</div>
+            </div>
+        `;
+        RunCommandHistory.value.prepend(element);
+        status.value = {status: 'bad', message: 'エラー: 実行情報が不足しています'};
+    }
+}
 const CHaserOnlineClient = async () => {
     let flag = false;
     runFlag.value = true;
@@ -214,6 +229,7 @@ const CHaserOnlineClient = async () => {
 }
 
 onMounted(async() => {
+    document.title = 'Dashboard';
     await checkUser();
     await getSetting();
     await getUser();
@@ -243,9 +259,8 @@ onUpdated(async() => {
                                 <div class="ms-1">マップレンダリング</div>
                             </div>
                             <div class="border border-success rounded-bottom text-light mb-2">
-                                ss <br>
-                                ss <br>
-                                sss
+                                <div class="text-danger">現在は開発途中のため未実装です</div>
+                                <div class="text-danger">ここでは、クライアントのアイテム取得をもとにマップを描画するための機能になります</div>
                             </div>
                             <div class="card card-body text-bg-dark">
                                 <div class="row">
@@ -327,7 +342,7 @@ onUpdated(async() => {
                                                 <div class="text-secondary fw-bold dropdown-toggle" style="font-size: 12px;">エディタ</div>
                                             </div>
                                             <div class="col-2 text-center" v-if="!runFlag">
-                                                <div @click="CHaserOnlineClient()">
+                                                <div @click="runCheck()">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plugin rotation" style="cursor: pointer;" viewBox="0 0 16 16">
                                                         <path fill-rule="evenodd" d="M1 8a7 7 0 1 1 2.898 5.673c-.167-.121-.216-.406-.002-.62l1.8-1.8a3.5 3.5 0 0 0 4.572-.328l1.414-1.415a.5.5 0 0 0 0-.707l-.707-.707 1.559-1.563a.5.5 0 1 0-.708-.706l-1.559 1.562-1.414-1.414 1.56-1.562a.5.5 0 1 0-.707-.706l-1.56 1.56-.707-.706a.5.5 0 0 0-.707 0L5.318 5.975a3.5 3.5 0 0 0-.328 4.571l-1.8 1.8c-.58.58-.62 1.6.121 2.137A8 8 0 1 0 0 8a.5.5 0 0 0 1 0Z"/>
                                                     </svg>
@@ -335,7 +350,7 @@ onUpdated(async() => {
                                                 <div class="text-success fw-bold" style="font-size: 12px;">実行</div>
                                             </div>
                                             <div class="col-2 text-center" v-if="runFlag">
-                                                <div @click="runFlag = false">
+                                                <div @click="runFlag = false, roomNumber = null;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-power rotation" style="cursor: pointer;" viewBox="0 0 16 16">
                                                         <path d="M7.5 1v7h1V1h-1z"/>
                                                         <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
