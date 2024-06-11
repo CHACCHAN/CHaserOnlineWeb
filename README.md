@@ -12,6 +12,13 @@ CHaserOnlineWebは、次のような、ほとんどのCHaserクライアント�
 このように、CHaserOnlineWebは簡単に始めやすく、タスク管理とクライアント作成で必要なツールを提供します。
 また、実行環境を各自で整える必要はなく、ブラウザさえあれば動作するポータブルソフトウェアになっています。
 
+## Supported Operating Systems
+CHaserOnline Webは、次のオペレーティングシステムに対応しています。
+
+- **Windows:** Version 10 and above
+- **macOS:** ❌
+- **Linux:** ❌
+
 ## Installation
 Gitの場合
 ```bash
