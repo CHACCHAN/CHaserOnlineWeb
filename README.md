@@ -22,86 +22,86 @@ zipの場合
 
 ## Usage
 1. リポジトリをダウンロードしよう
-   - Installationから、Gitコマンドか、直接ダウンロードします。  
-   > zipの場合は解凍してください。
+- Installationから、Gitコマンドか、直接ダウンロードします。  
+> zipの場合は解凍してください。
    
-   ![usage-1](https://raw.githubusercontent.com/CHACCHAN/CHaserOnlineWeb/main/docs/img/usage-1.png)
+![usage-1](https://raw.githubusercontent.com/CHACCHAN/CHaserOnlineWeb/main/docs/img/usage-1.png)
 2. ファイル構成を確認しよう
-   - `CHaserOnlineWeb/`の中身の説明  
-   <pre>
-   ├── CHaserOnline
-   │   ├── Action.js
-   │   ├── GetReady.js
-   │   └── setting.json
-   ├── python-3.12.3-embed-amd64
-   │   └── // Python本体のため省略
-   ├── server
-   │   ├── db
-   │   │   └── user.db
-   │   ├── model
-   │   │   └── user.py
-   │   ├── apis.py
-   │   ├── app.py
-   │   ├── CHaserOnlineClient.py
-   │   ├── config.py
-   │   └── module.py
-   ├── web
-   │   ├── dist
-   │   │   └── // Web画面
-   │   ├── public
-   │   │   └── // 公開コンテンツ
-   │   ├── src
-   │   │   └── // ソースコード
-   │   ︙
-   ├── docs //ドキュメント
-   ├── README.md
-   └── run.bat
-   </pre>
+- `CHaserOnlineWeb/`の中身の説明  
+<pre>
+├── CHaserOnline
+│   ├── Action.js
+│   ├── GetReady.js
+│   └── setting.json
+├── python-3.12.3-embed-amd64
+│   └── // Python本体のため省略
+├── server
+│   ├── db
+│   │   └── user.db
+│   ├── model
+│   │   └── user.py
+│   ├── apis.py
+│   ├── app.py
+│   ├── CHaserOnlineClient.py
+│   ├── config.py
+│   └── module.py
+├── web
+│   ├── dist
+│   │   └── // Web画面
+│   ├── public
+│   │   └── // 公開コンテンツ
+│   ├── src
+│   │   └── // ソースコード
+│   ︙
+├── docs //ドキュメント
+├── README.md
+└── run.bat
+</pre>
 
-   - CHaserOnlineフォルダは[JavaScript](https://ja.wikipedia.org/wiki/JavaScript)でGetReady、Actionなどを記述できる場所です。
-   - よく使うことになる場所になるでしょう。
+- CHaserOnlineフォルダは[JavaScript](https://ja.wikipedia.org/wiki/JavaScript)でGetReady、Actionなどを記述できる場所です。
+- よく使うことになる場所になるでしょう。
    
-   例 `CHaserOnline/GetReady.js`
+例 `CHaserOnline/GetReady.js`
    
-   ``` javascript
-   function GetReady(returnNumber, ActionReturnNumber) {
-       var GetReadyMode = 4;
-       var param;
+``` javascript
+function GetReady(returnNumber, ActionReturnNumber) {
+    var GetReadyMode = 4;
+    var param;
    
-       if(ActionReturnNumber[1] >= 70 && ActionReturnNumber[1] <= 79) {
-           GetReadyMode = 1;
-       } else if(ActionReturnNumber[3] >= 70 && ActionReturnNumber[3] <= 79) {
-           GetReadyMode = 3;
-       } else if(ActionReturnNumber[5] >= 70 && ActionReturnNumber[5] <= 79) {
-           GetReadyMode = 5;
-       } else if(ActionReturnNumber[7] >= 70 && ActionReturnNumber[7] <= 79) {
-           GetReadyMode = 7;
-       } else {
-           GetReadyMode = 4;
-       }
+    if(ActionReturnNumber[1] >= 70 && ActionReturnNumber[1] <= 79) {
+        GetReadyMode = 1;
+    } else if(ActionReturnNumber[3] >= 70 && ActionReturnNumber[3] <= 79) {
+        GetReadyMode = 3;
+    } else if(ActionReturnNumber[5] >= 70 && ActionReturnNumber[5] <= 79) {
+        GetReadyMode = 5;
+    } else if(ActionReturnNumber[7] >= 70 && ActionReturnNumber[7] <= 79) {
+        GetReadyMode = 7;
+    } else {
+        GetReadyMode = 4;
+    }
    
-       switch(GetReadyMode) {
-           case 1:
-               param = 'gru';
-               break;
-           case 3:
-               param = 'grl';
-               break;
-           case 5:
-               param = 'grr';
-               break;
-           case 7:
-               param = 'grd';
-               break;
-           default:
-               param = 'gr';
-       }
+    switch(GetReadyMode) {
+        case 1:
+            param = 'gru';
+            break;
+        case 3:
+            param = 'grl';
+            break;
+        case 5:
+            param = 'grr';
+            break;
+        case 7:
+            param = 'grd';
+            break;
+        default:
+            param = 'gr';
+    }
+
+    return param;
+}
    
-       return param;
-   }
-   
-   window.GetReady = GetReady;
-   ```
+window.GetReady = GetReady;
+```
 
    - python-3.12.3-embed-amd64フォルダはPython Embeded版本体が入ってます。
    - serverフォルダはpython(flask)を用いたWebのサーバー側の処理を担うアプリケーションが付属しています。
