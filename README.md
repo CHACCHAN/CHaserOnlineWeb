@@ -22,12 +22,12 @@ zipの場合
 
 ## Usage
 1. リポジトリをダウンロードしよう
-   - Installationから、Gitコマンドか、直接ダウンロードします。  
+   - Installationから、Gitコマンドか、直接ダウンロードします。
    > zipの場合は解凍してください。
    
    ![usage-1](https://raw.githubusercontent.com/CHACCHAN/CHaserOnlineWeb/main/docs/img/usage-1.png)
 2. ファイル構成を確認しよう
-   - `CHaserOnlineWeb/`の中身の説明  
+   `CHaserOnlineWeb/`の中身の説明  
    <pre>
    ├── CHaserOnline
    │   ├── Action.js
