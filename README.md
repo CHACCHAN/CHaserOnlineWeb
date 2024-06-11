@@ -8,6 +8,7 @@ CHaserOnline Webは、次のような、ほとんどのCHaserクライアント�
 - 固定されたプログラミング言語の移行([C言語](https://ja.wikipedia.org/wiki/C%E8%A8%80%E8%AA%9E)のみなど)
 - CHaserOnlineの監視([端末](https://ja.wikipedia.org/wiki/%E7%AB%AF%E6%9C%AB%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF)とブラウザを後者に統合して監視するなど)
 - テキストエディタの統合([エディタ](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF)をブラウザに統合するなど)
+
 このように、CHaserOnline Webは簡単に始めやすく、タスク管理とクライアント作成で必要なツールを提供します。
 
 ## Installation
