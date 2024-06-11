@@ -123,6 +123,10 @@ zipの場合
 
 5. JavaScriptでクライアントのプログラミングをしてみよう
 
+## Technology used
+
+## Notes
+
 ## Author
 - 作成者 中山裕哉
 - 所属 千葉工業大学
