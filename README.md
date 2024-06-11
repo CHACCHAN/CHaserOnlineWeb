@@ -16,8 +16,6 @@ CHaserOnlineWebは、次のような、ほとんどのCHaserクライアント�
 CHaserOnline Webは、次のオペレーティングシステムに対応しています。
 
 - **Windows:** Version 10 and above
-- **macOS:** ❌
-- **Linux:** ❌
 
 ## Installation
 Gitの場合
