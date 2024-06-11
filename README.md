@@ -45,6 +45,7 @@ zipの場合
    │   ├── app.py
    │   ├── CHaserOnlineClient.py
    │   ├── config.py
+   │   ├── routes.py
    │   └── module.py
    ├── web
    │   ├── dist
