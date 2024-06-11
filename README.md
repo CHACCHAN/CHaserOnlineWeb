@@ -23,7 +23,39 @@ zipの場合
 1. リポジトリをダウンロードしよう
    - Installationから、Gitコマンドか、直接ダウンロードします。
    > zipの場合は解凍してください。
-2. 
+   
+   ![usage-1](https://raw.githubusercontent.com/CHACCHAN/CHaserOnlineWeb/main/docs/img/usage-1.png)
+2. ファイル構成を確認しよう
+   - `CHaserOnlineWeb/`の中身の説明
+   <pre>
+   ├── CHaserOnline
+   │   ├── Action.js
+   │   ├── GetReady.js
+   │   └── setting.json
+   ├── python-3.12.3-embed-amd64
+   │   └── // Python本体のため省略
+   ├── server
+   │   ├── db
+   │   │   └── user.db
+   │   ├── model
+   │   │   └── user.py
+   │   ├── apis.py
+   │   ├── app.py
+   │   ├── CHaserOnlineClient.py
+   │   ├── config.py
+   │   └── module.py
+   ├── web
+   │   ├── dist
+   │   │   └── // Web画面
+   │   ├── public
+   │   │   └── // 公開コンテンツ
+   │   ├── src
+   │   │   └── // ソースコード
+   │   ︙
+   ├── docs //ドキュメント
+   ├── README.md
+   └── run.bat
+   </pre>
 
 ## Author
 - 作成者 中山裕哉
