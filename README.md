@@ -26,6 +26,7 @@ zipの場合
    > zipの場合は解凍してください。
    
    ![usage-1](https://raw.githubusercontent.com/CHACCHAN/CHaserOnlineWeb/main/docs/img/usage-1.png)
+
 2. ファイル構成を確認しよう  
    `CHaserOnlineWeb/`の中身の説明  
    <pre>
@@ -108,8 +109,13 @@ zipの場合
    - webフォルダはブラウザで実際に表示されるHTMLやJavaScriptやCSSが含まれています。
    - docsフォルダはドキュメントが含まれています。
    - run.batは実行ファイルです。
+
 3. サーバーを実行してみよう  
    `run.bat`をダブルクリックでサーバーとブラウザが起動します。
+
+4. ブラウザから操作してみよう
+
+5. JavaScriptでクライアントのプログラミングをしてみよう
 
 ## Author
 - 作成者 中山裕哉
