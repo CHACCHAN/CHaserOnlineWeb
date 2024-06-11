@@ -67,7 +67,8 @@ zipの場合
    └── run.bat
    </pre>
 
-   - CHaserOnlineフォルダは[JavaScript](https://ja.wikipedia.org/wiki/JavaScript)でGetReady、Actionなどを記述できる場所です。
+   - 其々のファイル/フォルダの解説
+      - CHaserOnlineフォルダは[JavaScript](https://ja.wikipedia.org/wiki/JavaScript)でGetReady、Actionなどを記述できる場所です。
    
    例 `CHaserOnline/GetReady.js`の中身
    
