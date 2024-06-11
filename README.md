@@ -69,6 +69,11 @@ zipの場合
 
    - 其々のファイル/フォルダの解説
       - CHaserOnlineフォルダは[JavaScript](https://ja.wikipedia.org/wiki/JavaScript)でGetReady、Actionなどを記述できる場所です。
+      - python-3.12.3-embed-amd64フォルダはPython Embeded版本体が入ってます。
+      - serverフォルダはpython(flask)を用いたWebのサーバー側の処理を担うアプリケーションが付属しています。
+      - webフォルダはブラウザで実際に表示されるHTMLやJavaScriptやCSSが含まれています。
+      - docsフォルダはドキュメントが含まれています。
+      - run.batは実行ファイルです。
    
    例 `CHaserOnline/GetReady.js`の中身
    
@@ -111,12 +116,6 @@ zipの場合
    
    window.GetReady = GetReady;
    ```
-
-   - python-3.12.3-embed-amd64フォルダはPython Embeded版本体が入ってます。
-   - serverフォルダはpython(flask)を用いたWebのサーバー側の処理を担うアプリケーションが付属しています。
-   - webフォルダはブラウザで実際に表示されるHTMLやJavaScriptやCSSが含まれています。
-   - docsフォルダはドキュメントが含まれています。
-   - run.batは実行ファイルです。
 
 3. サーバーを実行してみよう  
    `run.bat`をダブルクリックでサーバーとブラウザが起動します。
