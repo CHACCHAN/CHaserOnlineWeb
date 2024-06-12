@@ -141,7 +141,7 @@ zipの場合
    デフォルトでは、ジオメタルのみを回収する処理が組み込まれています。  
    returnNumberとActionReturnNumberが引数で読み込まれます。  
    この二つの変数を上手く利用して効率の良いクライアントをつくりましょう。  
-   ここでは、CHaserOnlineの各コマンドについては触れません。ステップアップヒントをご覧ください。
+   ここでは、CHaserOnlineの各コマンドについては触れません。[ステップアップヒント](http://www.zenjouken.com/?page_id=631)をご覧ください。
    - GetReady.jsはGetReadyの処理をおこないます。
    - Action.jsはActionの処理を行います。
    - setting.jsonはURLやProxyなどの設定ファイルになります。
@@ -152,9 +152,14 @@ zipの場合
    setting.jsonはダッシュボード(Webページ)、ツールバーの設定からも変更することが可能です。
 
 ## Technology used
-
+   - Python-3.12.3
+     - [Flask](https://github.com/pallets/flask)
+     - [CHaserOnlineClient](https://github.com/CHACCHAN/CHaserOnlineClient)
+   - JavaScript/Node.js
+     - [Vue.js](https://github.com/vuejs)
+     
 ## Notes
-
+   マニュアルもまだ完成してないから、気軽に待っててね
 ## Author
 - 作成者 中山裕哉
 - 所属 千葉工業大学
