@@ -135,11 +135,11 @@ zipの場合
    > Point: 実行コマンドに`GameSet`とあればOK!
 
    ![usage-5](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-5.png?raw=true)
-6. JavaScriptでクライアントのプログラミングをしてみよう  
-   VSCodeかメモ帳などで、CHaserOnlineフォルダを開きましょう。
-   デフォルトでは、ジオメタルのみを回収する処理が組み込まれています。
-   returnNumberとActionReturnNumberが引数で読み込まれます。
-   この二つの変数を上手く利用して効率の良いクライアントをつくりましょう。
+5. JavaScriptでクライアントのプログラミングをしてみよう  
+   VSCodeかメモ帳などで、CHaserOnlineフォルダを開きましょう。  
+   デフォルトでは、ジオメタルのみを回収する処理が組み込まれています。  
+   returnNumberとActionReturnNumberが引数で読み込まれます。  
+   この二つの変数を上手く利用して効率の良いクライアントをつくりましょう。  
    ここでは、CHaserOnlineの各コマンドについては触れません。公式ドキュメントをご覧ください。
 
    ![usage-6](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-6.png?raw=true)
