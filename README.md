@@ -148,6 +148,7 @@ zipの場合
 
    ![usage-6](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-6.png?raw=true)
    プログラムは、自動的にインポートされますので特別操作する必要はありません。
+   setting.jsonはダッシュボード(Webページ)、ツールバーの設定からも変更することが可能です。
 
 ## Technology used
 
