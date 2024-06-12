@@ -13,7 +13,7 @@ CHaserOnlineWebは、次のような、ほとんどのクライアント作成�
 また、実行環境を各自で整える必要はなく、ブラウザさえあれば動作するポータブルソフトウェアになっています。
 
 ## Supported Operating Systems
-CHaserOnline Webは、次のオペレーティングシステムに対応しています。
+CHaserOnlineWebは、次のオペレーティングシステムに対応しています。
 
 - **Windows:** Version 10 and above
 
