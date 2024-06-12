@@ -28,12 +28,12 @@ zipの場合
 
 ## Usage
 > APIのみ使用したい方はこちらから
-1. リポジトリをダウンロードしよう  
+**1. リポジトリをダウンロードしよう**  
    `Installation`から、Gitコマンドか、直接ダウンロードします。(zipの場合は解凍してください。)
    
    ![usage-1](https://raw.githubusercontent.com/CHACCHAN/CHaserOnlineWeb/main/docs/img/usage-1.png)
 
-2. ファイル構成を確認しよう  
+**2. ファイル構成を確認しよう**  
    `CHaserOnlineWeb/`の中身の説明  
    <pre>
    ├── CHaserOnline
@@ -116,10 +116,10 @@ zipの場合
    window.GetReady = GetReady;
    ```
 
-3. サーバーを実行してみよう  
+**3. サーバーを実行してみよう**  
    `run.bat`をダブルクリックでサーバーとブラウザが起動します。
 
-4. ブラウザから操作してみよう  
+**4. ブラウザから操作してみよう**  
    **Step1**: `ログイン`か`ユーザー登録`をする
    > Point: 選択したユーザーがCHaserOnlineで動作するユーザーになります。
    
@@ -135,7 +135,7 @@ zipの場合
    > Point: 実行コマンドに`GameSet`とあればOK!
 
    ![usage-5](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-5.png?raw=true)
-5. JavaScriptでクライアントのプログラミングをしてみよう  
+**5. JavaScriptでクライアントのプログラミングをしてみよう**  
    VSCodeかメモ帳などで、CHaserOnlineフォルダを開きましょう。  
    デフォルトでは、ジオメタルのみを回収する処理が組み込まれています。  
    returnNumberとActionReturnNumberが引数で読み込まれます。  
