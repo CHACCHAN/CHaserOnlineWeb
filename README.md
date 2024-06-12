@@ -29,8 +29,7 @@ zipの場合
 ## Usage
 > APIのみ使用したい方はこちらから
 1. リポジトリをダウンロードしよう  
-   `Installation`から、Gitコマンドか、直接ダウンロードします。
-   > zipの場合は解凍してください。
+   `Installation`から、Gitコマンドか、直接ダウンロードします。(zipの場合は解凍してください。)
    
    ![usage-1](https://raw.githubusercontent.com/CHACCHAN/CHaserOnlineWeb/main/docs/img/usage-1.png)
 
