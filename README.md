@@ -119,9 +119,31 @@ zipの場合
 3. サーバーを実行してみよう  
    `run.bat`をダブルクリックでサーバーとブラウザが起動します。
 
-4. ブラウザから操作してみよう
+4. ブラウザから操作してみよう  
+   **Step1**: `ログイン`か`ユーザー登録`をする
+   > Point: 選択したユーザーがCHaserOnlineで動作するユーザーになります。
+   
+   ![usage-2](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-2.png?raw=true)
+   ![usage-3](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-3.png?raw=true)
 
-5. JavaScriptでクライアントのプログラミングをしてみよう
+   **Step2**: `ダッシュボード`から動かしてみる
+   > Point: ルーム番号を入力してツールバーから実行させてみよう
+   
+   ![usage-4](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-4.png?raw=true)
+
+   **Step3**: 処理が終了したか確認しよう
+   > Point: 実行コマンドに`GameSet`とあればOK!
+
+   ![usage-5](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-5.png?raw=true)
+6. JavaScriptでクライアントのプログラミングをしてみよう  
+   VSCodeかメモ帳などで、CHaserOnlineフォルダを開きましょう。
+   デフォルトでは、ジオメタルのみを回収する処理が組み込まれています。
+   returnNumberとActionReturnNumberが引数で読み込まれます。
+   この二つの変数を上手く利用して効率の良いクライアントをつくりましょう。
+   ここでは、CHaserOnlineの各コマンドについては触れません。公式ドキュメントをご覧ください。
+
+   ![usage-6](https://github.com/CHACCHAN/CHaserOnlineWeb/blob/main/docs/img/usage-6.png?raw=true)
+   
 
 ## Technology used
 
